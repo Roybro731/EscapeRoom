@@ -1,0 +1,24 @@
+.bg {
+    background: url('../../assets/loginBackground.jpg');
+    background-size: cover;
+    background-position: center;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+}
+.text {
+   color: black;
+   font-weight: bolder;
+   font-size: 20px;
+}
+.textbox {
+    width: 200px;
+}
+.err {
+    font-size: 20px;
+    color: red;
+}
+.success {
+    font-size: 20px;
+    color: green;
+}
