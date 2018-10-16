@@ -1,27 +1,30 @@
 var express = require('express');
 var router = express.Router();
 const db = require('../bin/mongodb')();
-const passport = require('passport');
+const jwt = require('jwt-simple');
 
-/* GET home page. */
-
-router.post('/login', 
-  passport.authenticate('local'),
-  (req,res)=> {
-    if(req.user){
-      res.send(req.user);
-    }
-  }
-);
-
-router.post('/signup', function(req, res, next) {
+router.post('/register', (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
   db.insertUser(username,password, (err, reply) => {
     if(err){
       res.status(400).send(err);
     }else{
-      res.send(reply);
+      res.status(200).send('success');
+    }
+  });
+});
+
+router.post('/login', (req, res, next) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  db.chkUser(username,password, (err, reply) => {
+    if(err){
+      res.status(400).send(err);
+    }else{
+      const payload = {};
+      const token = jwt.encode(payload, 'roy');
+      res.send({token: token});
     }
   });
 });

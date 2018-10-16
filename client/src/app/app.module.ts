@@ -1,25 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { HttpInterceptorService } from './services/httpInterceptor.service';
 import { routes } from './routes';
-import { HomeComponent } from './home/home.component';
-import { ErrorPageComponent } from './error-page/error-page.component';
-import { LoginComponent } from './login/login.component';
-import { AppHeaderComponent } from './app-header/app-header.component';
 import { MainComponent } from './main/main.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
+import { AppHeaderComponent } from './app-header/app-header.component';
 
 
 
 @NgModule({
   declarations: [
     AppHeaderComponent,
-    HomeComponent,
     ErrorPageComponent,
-    LoginComponent,
     MainComponent,
   ],
   imports: [
@@ -29,7 +26,11 @@ import { MainComponent } from './main/main.component';
     FormsModule,
     NgbModule.forRoot(),
   ],
-  providers: [],
-  bootstrap: [HomeComponent]
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpInterceptorService,
+    multi: true,
+  }],
+  bootstrap: [MainComponent]
 })
 export class AppModule { }

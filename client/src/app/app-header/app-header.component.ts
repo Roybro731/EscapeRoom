@@ -1,26 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+
+import { UsersService } from '../services/users.service';
 
 @Component({
-  selector: 'app-app-header',
+  selector: 'app-header',
   templateUrl: './app-header.component.html',
   styleUrls: ['./app-header.component.css']
 })
 export class AppHeaderComponent implements OnInit {
 
+  public username: string;
+  public password: string;
   public logged = false;
-  public username = '';
 
-
-  constructor(private http: HttpClient,
-              private route: ActivatedRoute) {
+  constructor(private usrSvc: UsersService) {
    }
 
   ngOnInit() {
-    this.route.queryParams.subscribe( param => {
-      this.username = param.user;
-    });
+
   }
 
+  login() {
+    this.usrSvc.login(this.username, this.password);
+  }
+
+  register() {
+    this.usrSvc.register(this.username, this.password);
+  }
 }

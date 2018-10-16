@@ -5,12 +5,10 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const indexRouter = require('./routes/index');
-const passport = require('passport');
 const expressSession = require('express-session');
 
 const app = express();
 
-require('./config/passport')(app);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -27,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req,res,next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', '*');
   next();
 });
 
