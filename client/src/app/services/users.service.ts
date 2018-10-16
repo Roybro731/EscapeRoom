@@ -19,7 +19,7 @@ export class UsersService {
     this.http.post(`http://${this.serverURL}:${this.serverPort}/login`, body)
     .subscribe(res => {
       if (res && res['token']) {
-         localStorage.setItem('token', res['token']);
+         localStorage.setItem('token', 'token ' + res['token']);
       }
     });
   }

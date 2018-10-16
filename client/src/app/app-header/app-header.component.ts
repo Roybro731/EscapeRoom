@@ -27,4 +27,8 @@ export class AppHeaderComponent implements OnInit {
   register() {
     this.usrSvc.register(this.username, this.password);
   }
+
+  logout() {
+    localStorage.removeItem('token');
+  }
 }

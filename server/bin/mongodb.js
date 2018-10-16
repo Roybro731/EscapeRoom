@@ -8,7 +8,7 @@ module.exports = function (){
     const db = {
         insertUser: async function(username, password, cb) {
             try{
-                const client = await MongoClient.connect(url);
+                const client = await MongoClient.connect(url, { useNewUrlParser: true });
                 const collection = client.db(dbName);
                 let encryptedPassword = '';
                 const user = await collection.collection('users').findOne({'username': username});   
@@ -32,7 +32,7 @@ module.exports = function (){
 
         chkUser: async function(username, password, cb) {
             try{
-                const client = await MongoClient.connect(url);
+                const client = await MongoClient.connect(url,  { useNewUrlParser: true });
                 const collection = client.db(dbName);
                 const user = await collection.collection('users').findOne({'username': username});
                 if(!user) {
